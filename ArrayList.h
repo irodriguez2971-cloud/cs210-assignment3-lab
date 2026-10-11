@@ -8,11 +8,50 @@
 #pragma once
 
 #include <iostream>
+
+#include "LinkedList.h"
 #include "List.h"
 
 template <typename T>
 class ArrayList : public List<T> {
     public:
+
+        ArrayList() : size_(0){}
+
+        void addAnywhere(int position, T* value) override {
+            if (position < 0 || position > size_) {
+                std::cout << "Invalid position." << std::endl;
+                return;
+            }
+
+            if (size_ >= CAPACITY) {
+                std::cout << "ArrayList is full." << std::endl;
+                return;
+            }
+
+            for (int i = size_; i > position; --i) {
+                data_[i] = data_[i-1];
+            }
+
+            data_[position] = value;
+            ++size_;
+        }
+
+
+    void deleteAnywhere(int position) override {
+            if (position < 0 || position >= size_) {
+                std::cout << "Invalid position." << std::endl;
+                return;
+            }
+            delete data_[position];
+
+            for (int i = position; i < size_ - 1; ++i) {
+                data_[i] = data_[i+1];
+            }
+
+            --size_;
+        }
+
 
         void addFront(T* value) override {
             if (size_ >= CAPACITY) {
@@ -24,6 +63,10 @@ class ArrayList : public List<T> {
             }
             data_[0] = value;
             ++size_;
+        }
+
+    void reverse() override {
+            int left = 0
         }
 
     void deleteFront() override {
