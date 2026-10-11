@@ -52,6 +52,20 @@ class ArrayList : public List<T> {
             --size_;
         }
 
+    void reverse() override {
+            int left = 0;
+            int right = size_ - 1;
+
+            while (left < right) {
+                T* temp = data_[left];
+                data_[left] = data_[right];
+                data_[right] = temp;
+
+                ++left;
+                --right;
+            }
+        }
+
 
         void addFront(T* value) override {
             if (size_ >= CAPACITY) {
@@ -65,9 +79,6 @@ class ArrayList : public List<T> {
             ++size_;
         }
 
-    void reverse() override {
-            int left = 0
-        }
 
     void deleteFront() override {
             if (size_ == 0) {
