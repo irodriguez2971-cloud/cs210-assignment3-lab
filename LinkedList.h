@@ -86,7 +86,38 @@ public:
             previous = current;
             current = next;
         }
-        head_ = nullptr;
+        head_ = previous;
+    }
+
+    void concat(List<T>* other) override {
+        LinkedList<T>* otherList = dynamic_cast<LinkedList<T>* >(other);
+
+        if (otherList == nullptr) {
+            std::cout << "Concatenation of different list types" << std::endl;
+            return;
+        }
+
+        if (otherList->head_ == nullptr) {
+            return;
+        }
+
+        if (head_ == nullptr) {
+            head_ = otherList->head_;
+        }else{
+            Node<T>* current = head_;
+
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = otherList->head_;
+        }
+
+        size_ += otherList->size_;
+
+        otherList->head_ = nullptr;
+        otherList->size_ = 0;
+
+
     }
 
     void deleteFront() override {
