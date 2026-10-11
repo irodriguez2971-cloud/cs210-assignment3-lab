@@ -35,8 +35,8 @@ class List {
 
 template <typename T>
 std:: unique_ptr<List<T>> makeList () {
-    //return std::make_unique<LinkedList<T>>();
-    return std::make_unique<ArrayList<T>>();
+    return std::make_unique<LinkedList<T>>();
+    //return std::make_unique<ArrayList<T>>();
 }
 
 #endif //CS210_ASSIGNMENT3_LAB_PDF_LIST_H

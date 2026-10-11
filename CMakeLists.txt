@@ -3,11 +3,11 @@ project(cs210_Assignment3_Lab_pdf)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(cs210_Assignment3_Lab_pdf main1.cpp
-        Node.h
-        LinkedList.h
-        List.h
-        Data.h
+add_executable(cs210_Assignment3_Lab_pdf
+        main.cpp
         Player.h
-        Stack.h
+        List.h
+        ArrayList.h
+        LinkedList.h
+        Node.h
 )
