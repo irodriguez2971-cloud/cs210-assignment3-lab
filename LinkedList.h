@@ -7,6 +7,8 @@
 
 #include <iostream>
 
+#pragma once
+
 #include "Node.h"
 #include "List.h"
 
@@ -14,12 +16,79 @@
 template <typename T>
 class LinkedList : public List<T> {
 public:
-    LinkedList() : head_(nullptr) {}
+    LinkedList() : head_(nullptr), size_(0) {}
+
     void addFront(T* value) override {
         Node<T>* fresh = new Node<T>(value);
         fresh->next = head_;
         head_ = fresh;
+        ++size_;
     }
+
+    void addAnywhere(int position, T* value) override {
+        if (position < 0 || position > size_) {
+            std::cout << "Position out of bounds" << std::endl;
+            return;
+        }
+
+        if (position == 0) {
+            addFront(value);
+            return;
+        }
+
+        Node<T>* current = head_;
+
+        for (int i = 1; i < position; ++i) {
+            current = current->next;
+        }
+
+        Node<T>* fresh = new Node<T>(value);
+        fresh->next = current -> next;
+        current->next = fresh;
+
+        ++size_;
+    }
+
+    void deleteAnywhere(int position) override {
+        if (position < 0 || position >= size_) {
+            std::cout << "Position out of bounds" << std::endl;
+            return;
+        }
+
+        if (position == 0) {
+            deleteFront();
+            return;
+        }
+
+        Node<T>* current = head_;
+
+        for (int i = 1; i < position; ++i) {
+            current = current->next;
+        }
+
+        Node<T>* doomed = current->next;
+        current->next = doomed->next;
+
+        delete doomed->data;
+        delete doomed;
+
+        --size_;
+    }
+
+    void reverse() override {
+        Node<T>* previous = nullptr;
+        Node<T>* current = head_;
+
+        while (current != nullptr) {
+            Node<T>* next = current->next;
+
+            current->next = previous;
+            previous = current;
+            current = next;
+        }
+        head_ = nullptr;
+    }
+
     void deleteFront() override {
         if (head_ == nullptr) {
             std::cout << "LinkedList is empty." << std::endl;
@@ -29,6 +98,8 @@ public:
         head_ = head_->next;
         delete doomed->data;
         delete doomed;
+
+        --size_;
     }
     bool search(T* value) const override {
         Node<T>* current = head_;
@@ -56,6 +127,7 @@ public:
     }
 private:
     Node<T>* head_;
+    int size_;
 };
 
 #endif //CS210_ASSIGNMENT3_LAB_PDF_LINKEDLIST_H
