@@ -10,4 +10,5 @@ add_executable(cs210_Assignment3_Lab_pdf
         ArrayList.h
         LinkedList.h
         Node.h
+        Card.h
 )

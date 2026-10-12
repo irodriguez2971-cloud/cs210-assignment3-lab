@@ -34,14 +34,56 @@ int main() {
     std::unique_ptr<List<Player>> table = makeList<Player>();
 
     std::cout << "Players join the table:" <<std::endl;
-    table ->addFront(new Player(1, "BobbyBoy"));
-    table->addFront(new Player(2, "Fortnite"));
-    table->addFront(new Player(3, "John"));
+    Player* bobbyBoy = new Player(1, "BobbyBoy");
+    Player* fortnite = new Player(2, "Fortnite");
+    Player* john = new Player(3, "John");
+
+    bobbyBoy -> addCard(new Card("Red", "7"));
+    bobbyBoy -> addCard(new Card("Blue", "Skip"));
+
+    fortnite -> addCard(new Card("Green", "2"));
+    fortnite -> addCard(new Card("Yellow", "Reverse"));
+
+    john -> addCard(new Card("Wild", "Draw Four"));
+    john -> addCard(new Card("Red", "5"));
+
+    table -> addFront(bobbyBoy);
+    table -> addFront(fortnite);
+    table -> addFront(john);
+
 
     table->print();
 
+    std::cout << "Players' starting hands:" << std::endl;
+
+    std::cout << "BobbyBoy's hand: ";
+    bobbyBoy -> printHand();
+
+    std::cout << "Fortnite's hand: ";
+    fortnite -> printHand();
+
+    std::cout << "John's hand: ";
+    john -> printHand();
+
+    std::cout << "John plays a card" << std::endl;
+
+    Card* playedCard = john-> playCard();
+
+    if (playedCard != nullptr) {
+        std::cout << "Played card: " << *playedCard << std::endl;
+        delete playedCard;
+    }
+
+
+
     std::cout<< "Diana joins in the middle: " << std::endl;
-    table->addAnywhere(1, new Player(4, "Diana"));
+
+    Player* diana = new Player(4, "Diana");
+
+    diana -> addCard(new Card("Blue", "9"));
+    diana -> addCard(new Card("Green", "Reverse"));
+
+    table-> addAnywhere(1, diana);
     table->print();
 
     std::cout << "Reverse Card played: " << std::endl;
