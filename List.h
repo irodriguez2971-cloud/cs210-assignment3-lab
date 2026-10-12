@@ -8,6 +8,8 @@
 #pragma once
 #include <memory>
 
+
+
 template <typename T>
 class List {
     public:
@@ -28,15 +30,16 @@ class List {
         virtual void deleteAnywhere(int position) = 0;
         virtual void reverse() = 0;
         virtual void concat(List<T>* other) = 0;
-    };
+
+};
 
 #include "ArrayList.h"
 #include "LinkedList.h"
 
 template <typename T>
 std:: unique_ptr<List<T>> makeList () {
-    return std::make_unique<LinkedList<T>>();
-    //return std::make_unique<ArrayList<T>>();
+    //return std::make_unique<LinkedList<T>>();
+    return std::make_unique<ArrayList<T>>();
 }
 
 #endif //CS210_ASSIGNMENT3_LAB_PDF_LIST_H
